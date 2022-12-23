@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { News } from 'src/models/news';
 import { CreateNewsRequest } from 'src/models/newsRequest';
 import { NewsService } from './news.service';
@@ -13,12 +21,21 @@ export class NewsController {
   }
 
   @Get(':id')
-  getNewsById(@Param('id') id: string) {
+  getNew(@Param('id') id: string): News {
     console.log(`GET news with id ${id}`);
     return this.newsService.getNewsById(+id);
   }
+
   @Post()
   createNews(@Body() request: CreateNewsRequest): number {
     return this.newsService.createNews(request);
+  }
+  @Put(':id')
+  updateNews(@Param('id') id: string, @Body() request: CreateNewsRequest) {
+    this.newsService.updateNews(+id, request);
+  }
+  @Delete(':id')
+  deleteNews(@Param('id') id: string) {
+    this.newsService.deleteNews(+id);
   }
 }

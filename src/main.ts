@@ -8,6 +8,7 @@ async function bootstrap() {
     methods: 'GET,PUT,POST,DELETE',
   };
   app.enableCors(options);
+  app.setGlobalPrefix('api');
   await app.listen(3010);
 }
 bootstrap();
